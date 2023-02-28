@@ -7,7 +7,6 @@ dude.x=76
 dude.y=60
 
 MAIN_LOOP:
-print "main loop";
 	if CURRENT_STATE=STATE_IN_PLAY then
 		gosub IN_PLAY_LOOP
 	endif
