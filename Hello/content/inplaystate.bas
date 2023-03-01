@@ -1,4 +1,5 @@
 IN_PLAY_LOOP:
+    map room("layer1"),0,0
 	spr dude("spr"), dude.x, dude.y
 	gosub IN_PLAY_INPUT
 	sync
