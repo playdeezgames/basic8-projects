@@ -1,12 +1,4 @@
-DIRECTION_NORTH=0
-DIRECTION_EAST=1
-DIRECTION_SOUTH=2
-DIRECTION_WEST=3
-next_directions=LIST(DIRECTION_EAST,DIRECTION_SOUTH,DIRECTION_WEST,DIRECTION_NORTH)
-previous_directions=LIST(DIRECTION_WEST,DIRECTION_NORTH,DIRECTION_EAST,DIRECTION_SOUTH)
-opposite_directions=LIST(DIRECTION_SOUTH,DIRECTION_WEST,DIRECTION_NORTH,DIRECTION_EAST)
-delta_column=LIST(0,1,0,-1)
-delta_row=LIST(-1,0,1,0)
+import "directions.bas"
 
 CLASS maze_door
 ENDCLASS
@@ -36,7 +28,11 @@ CLASS maze
         FOR c=0 TO ME.columns-1
             FOR r=0 TO ME.rows-1
                 cell = ME.get_cell(c,r)
-
+                FOR d=0 TO 3
+                    nc=c+GET(delta_column,d)
+                    nr=r+GET(delta_row,d)
+                    
+                NEXT d
             NEXT r
         NEXT c
     ENDDEF
