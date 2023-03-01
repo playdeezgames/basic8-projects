@@ -1,6 +1,13 @@
 import "directions.bas"
 
 CLASS maze_door
+    VAR state=FALSE
+    DEF is_open()
+        return ME.state
+    ENDDEF
+    DEF set_open(o)
+        ME.state=o
+    ENDDEF
 ENDCLASS
 
 CLASS maze_cell
@@ -11,6 +18,12 @@ CLASS maze_cell
     ENDDEF
     DEF get_neighbor(d)
         GET(ME.neighbors,d)
+    ENDDEF
+    DEF set_door(d,dr)
+        SET(ME.doors,d,dr)
+    ENDDEF
+    DEF get_door(d)
+        GET(ME.doors,d)
     ENDDEF
 ENDCLASS
 
@@ -42,6 +55,9 @@ CLASS maze
                         neighbor = ME.get_cell(nc,nr)
                         cell.set_neighbor(d,neighbor)
                         neighbor.set_neighbor(GET(opposite_directions,d),cell)
+                        door = NEW(maze_door)
+                        cell.set_door(d,door)
+                        neighbor.set_neighbor(GET(opposite_directions,d),door)
                     ENDIF
                 NEXT d
             NEXT r
