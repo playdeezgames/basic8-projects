@@ -6,6 +6,12 @@ ENDCLASS
 CLASS maze_cell
     VAR neighbors=LIST(NIL,NIL,NIL,NIL)
     VAR doors=LIST(NIL,NIL,NIL,NIL)
+    DEF set_neighbor(d,n)
+        SET(ME.neighbors,d,n)
+    ENDDEF
+    DEF get_neighbor(d)
+        GET(ME.neighbors,d)
+    ENDDEF
 ENDCLASS
 
 CLASS maze
@@ -31,7 +37,9 @@ CLASS maze
                 FOR d=0 TO 3
                     nc=c+GET(delta_column,d)
                     nr=r+GET(delta_row,d)
-                    
+                    IF nc>=0 AND nc<ME.columns AND nr>=0 AND nr<ME.rows THEN
+
+                    ENDIF
                 NEXT d
             NEXT r
         NEXT c
