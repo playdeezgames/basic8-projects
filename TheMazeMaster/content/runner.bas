@@ -1,9 +1,10 @@
 import "directions.bas"
 import "maze.bas"
 
-mazeData = NEW(maze)
-mazeData.init(8,8)
-mazeData.generate()
+'mazeData = NEW(maze)
+'mazeData.init(8,8)
+'mazeData.dump()
+'mazeData.generate()
 
 display_map = LOAD_RESOURCE("maze.map")
 
