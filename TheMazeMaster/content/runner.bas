@@ -33,12 +33,15 @@ CLASS maze
         WEND
         FOR c=0 TO ME.columns-1
             FOR r=0 TO ME.rows-1
+            print "("+STR(c)+","+STR(r)+")";
                 cell = ME.get_cell(c,r)
                 FOR d=0 TO 3
                     nc=c+GET(delta_column,d)
                     nr=r+GET(delta_row,d)
                     IF nc>=0 AND nc<ME.columns AND nr>=0 AND nr<ME.rows THEN
-
+                        neighbor = ME.get_cell(nc,nr)
+                        cell.set_neighbor(d,neighbor)
+                        neighbor.set_neighbor(GET(opposite_directions,d),cell)
                     ENDIF
                 NEXT d
             NEXT r
