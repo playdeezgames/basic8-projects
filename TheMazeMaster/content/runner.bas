@@ -1,19 +1,27 @@
-import "directions.bas"
-import "maze.bas"
+IMPORT "directions.bas"
+IMPORT "maze.bas"
 
-'mazeData = NEW(maze)
-'mazeData.init(8,8)
-'mazeData.dump()
-'mazeData.generate()
+GENERATE_MAZE()
 
-display_map = LOAD_RESOURCE("maze.map")
+DISPLAY_MAP = LOAD_RESOURCE("maze.map")
+FOR COLUMN=0 TO MAZE_COLUMNS-1
+    FOR ROW=0 TO MAZE_ROWS-1
+        TEMP=0
+        FOR DIR=DIRECTION_FIRST TO DIRECTION_LAST
+            IF MAZE_CELL_DOORS(COLUMN,ROW,DIR) THEN
+                TEMP=BOR(TEMP,SHL(1,DIR))
+            ENDIF
+        NEXT DIR
+        MSET DISPLAY_MAP,1,COLUMN,ROW,TEMP
+    NEXT ROW
+NEXT COLUMN
 
-def update(delta)
-    MAP display_map,0,0
-enddef
+DEF UPDATE(DELTA)
+    MAP DISPLAY_MAP,0,0
+ENDDEF
 
-def run()
-    drv = driver()
-    update_with(drv, call(update))
-enddef
+DEF RUN()
+    DRV = DRIVER()
+    UPDATE_WITH(DRV, CALL(UPDATE))
+ENDDEF
 

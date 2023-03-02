@@ -1,3 +1,3 @@
-import "runner.bas"
+IMPORT "runner.bas"
 
-run()
+RUN()
