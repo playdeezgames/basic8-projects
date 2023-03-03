@@ -2,3 +2,44 @@ ROOM_ROWS=15
 ROOM_COLUMNS=15
 ROOM_CELL_WIDTH = 8
 ROOM_CELL_HEIGHT = 8
+ROOM_MAPS = LIST()
+DEF GENERATE_ROOMS()
+    CLEAR(ROOM_MAPS)
+    FOR ROW=0 TO MAZE_ROWS-1
+        FOR COLUMN=0 TO MAZE_COLUMNS-1
+            TEMP=0
+            EXIT_COUNT=0
+            FOR DIR=DIRECTION_FIRST TO DIRECTION_LAST
+                IF MAZE_CELL_DOORS(COLUMN,ROW,DIR) THEN
+                    TEMP=BOR(TEMP,SHL(1,DIR))
+                    EXIT_COUNT=EXIT_COUNT+1
+                ENDIF
+            NEXT DIR
+            IS_CHAMBER=FALSE
+            IF EXIT_COUNT=1 THEN
+                IS_CHAMBER=TRUE
+            ELSEIF EXIT_COUNT=2 THEN
+                IF RND(0,99)<50 THEN
+                    IS_CHAMBER=TRUE
+                ENDIF
+            ELSEIF EXIT_COUNT=3 THEN
+                IF RND(0,99)<75 THEN
+                    IS_CHAMBER=TRUE
+                ENDIF
+            ELSE
+                IF RND(0,99)<25 THEN
+                    IS_CHAMBER=TRUE
+                ENDIF
+            ENDIF
+            IF IS_CHAMBER THEN
+                ROOM_MAP=CLONE(CHAMBER_MAPS(TEMP))
+            ELSE
+                ROOM_MAP=CLONE(PASSAGEWAY_MAPS(TEMP))
+            ENDIF
+            PUSH(ROOM_MAPS,ROOM_MAP)
+        NEXT COLUMN
+    NEXT ROW
+ENDDEF
+DEF GET_ROOM_MAP(COLUMN,ROW)
+    RETURN GET(ROOM_MAPS,COLUMN+ROW*MAZE_COLUMNS)
+ENDDEF
