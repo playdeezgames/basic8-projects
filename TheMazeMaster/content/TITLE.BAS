@@ -1,0 +1,12 @@
+DEF TITLE_UPDATE(DELTA)
+    TEXT 0,0,"THE MAZE MASTER"
+    TEXT 0,8,"BY TheGrumpyGameDev"
+    TEXT 0,16,"FOR Jam for All"
+    TEXT 0,24,"BASIC Dialects (#4)"
+    TEXT 0,32,"(1) START"
+    IF KEYP CODE_1 THEN
+        START_GAME()
+        RETURN STATE_IN_PLAY
+    ENDIF
+    RETURN STATE_TITLE
+ENDDEF
