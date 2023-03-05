@@ -85,8 +85,11 @@ DEF MOVE_CREATURE(I,D)
         ELSE
             TL=GET_ROOM_TILE(MX,MY,NX,NY)
             IF CAN_WALK_ON_TILE(TL) THEN
-                CREATURE_ROOM_COLUMN(I)=NX
-                CREATURE_ROOM_ROW(I)=NY
+                TL=GET_ROOM_CREATURE_TILE(MX,MY,NX,NY)
+                IF TL=TILE_EMPTY THEN
+                    CREATURE_ROOM_COLUMN(I)=NX
+                    CREATURE_ROOM_ROW(I)=NY
+                ENDIF
             ENDIF
         ENDIF
         PLACE_CREATURE(I)
