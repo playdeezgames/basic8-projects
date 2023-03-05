@@ -35,7 +35,7 @@ DEF PLACE_ROOM_DOORS()
                     FM=PASSAGEWAYDOOR_MAPS(D)
                 ENDIF
                 TM=GET_ROOM_MAP(MX,MY)
-                BLIT_MAP(FM,TM,1,239)
+                BLIT_MAP(FM,TM,1,TILE_EMPTY)
                 NX=STEP_X(D,MX,MY)
                 NY=STEP_Y(D,MX,MY)
                 D=OPPOSITE_DIRECTION(D)
@@ -45,7 +45,7 @@ DEF PLACE_ROOM_DOORS()
                     FM=PASSAGEWAYDOOR_MAPS(D)
                 ENDIF
                 TM=GET_ROOM_MAP(NX,NY)
-                BLIT_MAP(FM,TM,1,239)
+                BLIT_MAP(FM,TM,1,TILE_EMPTY)
             ENDIF
         NEXT MY
     NEXT MX
