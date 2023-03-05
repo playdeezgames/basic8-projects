@@ -56,3 +56,39 @@ DEF GENERATE_CREATURES()
         WEND
     NEXT CTI
 ENDDEF
+DEF MOVE_CREATURE(I,D)
+    IF CREATURE_ALIVE(I) THEN
+        REMOVE_CREATURE(I)
+        X=CREATURE_ROOM_COLUMN(I)
+        Y=CREATURE_ROOM_ROW(I)
+        NX=STEP_X(D,X,Y)
+        NY=STEP_Y(D,X,Y)
+        MX=CREATURE_MAZE_COLUMN(I)
+        MY=CREATURE_MAZE_ROW(I)
+        IF NX<0 OR NY<0 OR NX>=ROOM_COLUMNS OR NY>=ROOM_ROWS THEN
+            CREATURE_MAZE_COLUMN(I) = STEP_X(D,MX,MY)
+            CREATURE_MAZE_ROW(I) = STEP_Y(D,MX,MY)
+            IF NX<0 THEN
+                CREATURE_ROOM_COLUMN(I)=NX+ROOM_COLUMNS
+            ELSEIF NX>=ROOM_COLUMNS THEN
+                CREATURE_ROOM_COLUMN(I)=NX-ROOM_COLUMNS
+            ELSE
+                CREATURE_ROOM_COLUMN(I)=NX
+            ENDIF
+            IF NY<0 THEN
+                CREATURE_ROOM_ROW(I)=NY+ROOM_ROWS
+            ELSEIF NY>=ROOM_ROWS THEN
+                CREATURE_ROOM_ROW(I)=NY-ROOM_ROWS
+            ELSE
+                CREATURE_ROOM_ROW(I)=NY
+            ENDIF
+        ELSE
+            TL=GET_ROOM_TILE(MX,MY,NX,NY)
+            IF CAN_WALK_ON_TILE(TL) THEN
+                CREATURE_ROOM_COLUMN(I)=NX
+                CREATURE_ROOM_ROW(I)=NY
+            ENDIF
+        ENDIF
+        PLACE_CREATURE(I)
+    ENDIF
+ENDDEF
