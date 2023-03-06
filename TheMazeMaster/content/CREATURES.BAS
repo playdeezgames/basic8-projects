@@ -60,7 +60,12 @@ DEF GENERATE_CREATURES()
         WEND
     NEXT CTI
 ENDDEF
+MOVE_SUCCESS="SUCCESS"
+MOVE_FIGHT="FIGHT"
+MOVE_PICKUP="PICKUP"
+MOVE_BLOCKED="BLOCKED"
 DEF MOVE_CREATURE(I,D)
+    R=MOVE_BLOCKED
     IF CREATURE_ALIVE(I) THEN
         REMOVE_CREATURE(I)
         X=CREATURE_ROOM_COLUMN(I)
@@ -93,9 +98,17 @@ DEF MOVE_CREATURE(I,D)
                 IF TL=TILE_EMPTY THEN
                     CREATURE_ROOM_COLUMN(I)=NX
                     CREATURE_ROOM_ROW(I)=NY
+                    R= MOVE_SUCCESS
+                ELSE
+                    IF IS_TILE_CREATURE(TL) THEN
+                        R= MOVE_FIGHT
+                    ELSE
+                        R= MOVE_ITEM
+                    ENDIF
                 ENDIF
             ENDIF
         ENDIF
         PLACE_CREATURE(I)
     ENDIF
+    RETURN R
 ENDDEF
