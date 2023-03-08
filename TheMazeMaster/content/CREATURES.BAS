@@ -169,7 +169,7 @@ DEF MOVE_CREATURE(I,D)
                     IF IS_TILE_CREATURE(TL) THEN
                         R= MOVE_FIGHT
                     ELSE
-                        R= MOVE_ITEM
+                        R= MOVE_PICKUP
                     ENDIF
                 ENDIF
             ENDIF
